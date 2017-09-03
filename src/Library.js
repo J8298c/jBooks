@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import * as BooksAPI from './BooksAPI';
 import Shelf from './Shelves';
 class Library extends Component {
@@ -14,7 +15,8 @@ class Library extends Component {
   render() {
     console.log(this.state, 'the state');
     return (
-      <div className="list-books">
+      <div>
+        <div className="list-books">
         <div className="list-books-title">
           <h1>MyReads</h1>
         </div>
@@ -26,7 +28,11 @@ class Library extends Component {
           </div>
         </div>
       </div>
-
+      <div className="open-search">
+        <Link to='/search'>Add a book</Link>
+      </div>
+      </div>
+      
     )
   }
 }
