@@ -20,7 +20,9 @@ class Library extends Component {
         </div>
         <div className="list-books-content">
           <div>
+          <div className="bookshelf">
             <Shelf books={this.state.books} />
+            </div>
           </div>
         </div>
       </div>
