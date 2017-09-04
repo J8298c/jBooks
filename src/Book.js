@@ -4,8 +4,8 @@ class Book extends Component {
   state = {
     value: '',
   }
-  handleChange(event){
-    console.log(event.target.value);
+  handleChange(option){
+    console.log(option);
   }
   render() {
     return (
@@ -14,7 +14,7 @@ class Book extends Component {
           <div className="book-cover" 
             style={{ width: 128, height: 193, backgroundImage: `url(${this.props.bookImage})` }} />
             <div className="book-shelf-changer">
-              <select onSelect={(event) => { this.selectBoxChange(event.target.value)}}>
+              <select onChange={(event) => { this.handleChange(event.target.value)}}>
                 <option value="none" disabled>Move to...</option>
                 <option value="currentlyReading">Currently Reading</option>
                 <option value="wantToRead">Want to Read</option>
