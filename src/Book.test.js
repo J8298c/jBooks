@@ -8,4 +8,9 @@ describe('should render book component', () => {
     const wrapper = mount(<Book book='name' />)
     expect(wrapper.prop('book')).to.equal('name');
   })
+  it('should render the component without exploding', () => {
+    const wrapper = mount(<Book book='name' />);
+    expect(wrapper.find('li')).to.have.length(1);
+    expect(wrapper.find('div')).to.have.length(6);
+  })
 })
