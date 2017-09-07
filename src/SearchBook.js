@@ -12,7 +12,9 @@ function SearchBook(props) {
         </div>
         </div>
         <div className="search-books-results">
-          <ol className="books-grid"></ol>
+          <ol className="books-grid">
+            
+          </ol>
         </div>
     </div>
   )
