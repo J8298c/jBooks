@@ -3,12 +3,28 @@ import { Link } from 'react-router-dom';
 import Apptitle from './AppTitle';
 
 function Shelves(props) {
-  console.log(props);
+  console.log(props, 'props being passed into shelves');
+  const { books } = props;
+  books.filter((book) => {
+    if(book.shelf === 'currently reading'){
+      console.log(book.name, 'filtered book');
+    }  
+  })
   return (
     <div className="list-books">
       <Apptitle />
             <div className="list-books-content">
-              <div>
+            
+            </div>
+            <div className="open-search">
+              <Link to='/search'>Add a book</Link>
+            </div>
+          </div>
+  );
+}
+export default Shelves;
+
+ {/*<div>
                 <div className="bookshelf">
                   <h2 className="bookshelf-title">Currently Reading</h2>
                   <div className="bookshelf-books">
@@ -156,12 +172,4 @@ function Shelves(props) {
                     </ol>
                   </div>
                 </div>
-              </div>
-            </div>
-            <div className="open-search">
-              <Link to='/search'>Add a book</Link>
-            </div>
-          </div>
-  );
-}
-export default Shelves;
+              </div>*/}
