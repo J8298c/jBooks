@@ -5,16 +5,10 @@ import Apptitle from './AppTitle';
 function Shelves(props) {
   console.log(props, 'props being passed into shelves');
   const { books } = props;
-  books.filter((book) => {
-    if(book.shelf === 'currently reading'){
-      console.log(book.name, 'filtered book');
-    }  
-  })
   return (
     <div className="list-books">
       <Apptitle />
             <div className="list-books-content">
-            
             </div>
             <div className="open-search">
               <Link to='/search'>Add a book</Link>
