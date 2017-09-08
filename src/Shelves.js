@@ -1,14 +1,37 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Apptitle from './AppTitle';
 
 function Shelves(props) {
   console.log(props, 'props being passed into shelves');
   const { books } = props;
+  const shelfName = []; // holds all book.shelf values
+
+ books.forEach((book, i) => { 
+   if(book.shelf !== shelfName[i]){
+     shelfName.push(book.shelf); //adds all values to arr
+   }
+ })
+/*
+ categories function removes all duplicates
+ from the shelfname array to pass into 
+ shelf component
+*/
+ const categories = arr => {
+   return arr.filter((category, pos, arr) => {
+     return arr.indexOf(category) == pos;
+   })
+ }
+ console.log(categories(shelfName));
+
   return (
     <div className="list-books">
       <Apptitle />
             <div className="list-books-content">
+              {/*
+                add bookshelf
+              */}
             </div>
             <div className="open-search">
               <Link to='/search'>Add a book</Link>
@@ -17,6 +40,10 @@ function Shelves(props) {
   );
 }
 export default Shelves;
+
+Shelves.PropTypes = {
+  books: PropTypes.array
+}
 
  {/*<div>
                 <div className="bookshelf">
