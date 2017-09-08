@@ -3,6 +3,7 @@ import { Route } from 'react-router-dom'
 import * as BooksAPI from './BooksAPI'
 import SearchBook from './SearchBook';
 import Shelves from './Shelves';
+import BookDemo from './BookDemo';
 import './App.css'
 
 class BooksApp extends React.Component {
@@ -38,6 +39,9 @@ class BooksApp extends React.Component {
           )}/>
           <Route exact path='/' render={() => (
             <Shelves books={books} onShelfChange={this.onShelfChange}/>
+          )}/>
+          <Route path='/book/:id' render={() => (
+            <BookDemo />
           )}/>
       </div>
     )
