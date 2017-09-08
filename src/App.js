@@ -8,6 +8,7 @@ import './App.css'
 class BooksApp extends React.Component {
   state = {
     books: [],
+    searchResults: [],
   }
   componentWillMount() {
     BooksAPI.getAll()
@@ -21,7 +22,7 @@ class BooksApp extends React.Component {
   }
   onSearch(query) {
     console.log(query, 'search query')
-    BooksAPI.search(query, 10)
+    BooksAPI.search(query, 10).then((results) => {this.setState({searchResults: results})})
   }
 
   render() {
@@ -29,7 +30,10 @@ class BooksApp extends React.Component {
     return (
       <div className="app">
           <Route path='/search' render={() => (
-            <SearchBook onChange={(event) => { this.onSearch(event.target.value)}}
+            <SearchBook 
+            onChange={(event) => { this.onSearch(event.target.value)}}
+            onShelfChange={this.onShelfChange}
+            searchResults={this.state.searchResults}
             />
           )}/>
           <Route exact path='/' render={() => (

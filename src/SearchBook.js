@@ -1,8 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Book from './Book';
 
 function SearchBook(props) {
   console.log(props, 'props in booksearch');
+  const results = props.searchResults.map((results) => (
+    <Book bookTitle={results.title} bookAuthors={results.authors} imageUrl={results.imageLinks.thumbnail}
+      onShelfChange={props.onShelfChange} key={results.id}
+    />
+  ))
   return(
     <div className="search-books">
       <div className="search-books-bar">
@@ -13,7 +19,7 @@ function SearchBook(props) {
         </div>
         <div className="search-books-results">
           <ol className="books-grid">
-            
+            {props.searchResults ? results : ''}
           </ol>
         </div>
     </div>
