@@ -5,7 +5,7 @@ function Shelf(props) {
   console.log(props, 'props in the shelf component');
   const showBooks = props.books.map((book) => (
     <Book bookTitle={book.title} bookAuthor={book.authors}
-      imageUrl={book.imageLinks.thumbnail} key={book.id}
+      imageUrl={book.imageLinks.thumbnail} key={book.id} onShelfChange={props.onShelfChange}
     />
   ))
   return(

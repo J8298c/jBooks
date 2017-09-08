@@ -17,10 +17,11 @@ class BooksApp extends React.Component {
   onShelfChange(book, shelf) {
     console.log(book, shelf, 'update params book and shelf');
     BooksAPI.update(book, shelf)
+         
   }
   onSearch(query) {
     console.log(query, 'search query')
-    BooksAPI.search(query)
+    BooksAPI.search(query, 10)
   }
 
   render() {
@@ -32,7 +33,7 @@ class BooksApp extends React.Component {
             />
           )}/>
           <Route exact path='/' render={() => (
-            <Shelves books={books}/>
+            <Shelves books={books} onShelfChange={this.onShelfChange}/>
           )}/>
       </div>
     )

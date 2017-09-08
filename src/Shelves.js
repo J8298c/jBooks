@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Apptitle from './AppTitle';
 import Shelf from './Shelf';
-import Book from './Book';
+
 
 function Shelves(props) {
   console.log(props, 'props being passed into shelves');
-  const { books } = props;
+  const { books, onShelfChange } = props;
   const read =[];
   const currentlyReading = [];
   const wantToRead = [];
@@ -21,9 +21,9 @@ function Shelves(props) {
     <div className="list-books">
       <Apptitle />
       <div className="list-books-content">
-        <Shelf shelfName="Read" books={read} />
-        <Shelf shelfName="Currently Reading" books={currentlyReading} />
-        <Shelf shelfName="Want to Read" books={wantToRead} />
+        <Shelf shelfName="Read" books={read} onShelfChange={onShelfChange} />
+        <Shelf shelfName="Currently Reading" books={currentlyReading} onShelfChange={onShelfChange} />
+        <Shelf shelfName="Want to Read" books={wantToRead} onShelfChange={onShelfChange} />
       </div>
       <div className="open-search">
         <Link to='/search'>Add a book</Link>
