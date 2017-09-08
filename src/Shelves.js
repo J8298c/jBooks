@@ -20,15 +20,15 @@ function Shelves(props) {
   return (
     <div className="list-books">
       <Apptitle />
-            <div className="list-books-content">
-             <Shelf shelfName="Read" books={read} />
-             <Shelf shelfName="Currently Reading" books={currentlyReading} />
-             <Shelf shelfName="Want to Read" books={wantToRead} />
-            </div>
-            <div className="open-search">
-              <Link to='/search'>Add a book</Link>
-            </div>
-          </div>
+      <div className="list-books-content">
+        <Shelf shelfName="Read" books={read} />
+        <Shelf shelfName="Currently Reading" books={currentlyReading} />
+        <Shelf shelfName="Want to Read" books={wantToRead} />
+      </div>
+      <div className="open-search">
+        <Link to='/search'>Add a book</Link>
+      </div>
+    </div>
   );
 }
 export default Shelves;
