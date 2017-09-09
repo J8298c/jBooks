@@ -19,7 +19,7 @@ function SearchBook(props) {
         </div>
         <div className="search-books-results">
           <ol className="books-grid">
-            {props.searchResults ? results : 'Sorry try a different search'}
+            {props.searchResults.length > 0 ? results : 'Sorry try a different search'}
           </ol>
         </div>
     </div>

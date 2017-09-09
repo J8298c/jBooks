@@ -23,7 +23,9 @@ class BooksApp extends React.Component {
   
   onSearch(query) {
     console.log(query, 'search query')
-    BooksAPI.search(query, 10).then((results) => {this.setState({searchResults: results})})
+    if (query !== ''){
+      BooksAPI.search(query, 10).then((results) => {this.setState({searchResults: results})})
+    }
   }
 
   render() {
