@@ -11,7 +11,7 @@ class BooksApp extends React.Component {
     books: [],
     searchResults: [],
   }
-  componentWillMount() {
+  componentDidMount() {
     BooksAPI.getAll()
       .then((books) => { this.setState({ books })});
   }
@@ -19,8 +19,8 @@ class BooksApp extends React.Component {
   onShelfChange(book, shelf) {
     console.log(book, shelf, 'update params book and shelf');
     BooksAPI.update(book, shelf)
-         
   }
+  
   onSearch(query) {
     console.log(query, 'search query')
     BooksAPI.search(query, 10).then((results) => {this.setState({searchResults: results})})

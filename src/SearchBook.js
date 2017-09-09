@@ -5,9 +5,9 @@ import Book from './Book';
 function SearchBook(props) {
   console.log(props, 'props in booksearch');
   const results = props.searchResults.map((results) => (
-    <Book bookTitle={results.title} bookAuthors={results.authors} imageUrl={results.imageLinks.thumbnail}
+    <Link to={`/book/${results.id}`}><Book bookTitle={results.title} bookAuthors={results.authors} imageUrl={results.imageLinks.thumbnail}
       onShelfChange={props.onShelfChange} key={results.id}
-    />
+    /></Link>
   ))
   return(
     <div className="search-books">
@@ -19,7 +19,7 @@ function SearchBook(props) {
         </div>
         <div className="search-books-results">
           <ol className="books-grid">
-            {props.searchResults ? results : ''}
+            {props.searchResults ? results : 'Sorry try a different search'}
           </ol>
         </div>
     </div>
