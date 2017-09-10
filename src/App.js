@@ -16,9 +16,26 @@ class BooksApp extends React.Component {
       .then((books) => { this.setState({ books })});
   }
 
-  onShelfChange(book, shelf) {
-    console.log(book, shelf, 'update params book and shelf');
-    BooksAPI.update(book, shelf)
+  // getABook(id, shelf) {
+  //   BooksAPI.get(id)
+  //   .then((data) => {
+  //     this.setState( (state) => {
+  //       state.books = state.books
+  //         .filter( item => (data.id !== item.id)) //filters out current book, if present
+  //         .concat(data); // concats new book with previous state
+  //     });
+  //   }).catch(err => {throw new Error(err)})
+  // }
+
+  onShelfChange(id, shelf) {
+    BooksAPI.update({id: id}, shelf)
+    .then( (data) => {
+          this.setState((state) => {
+            state.books = state.books
+              .filter(item => (data.id !== item.id))
+              .concat(data);
+          })
+    })
   }
   
   onSearch(query) {
