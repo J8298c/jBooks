@@ -7,36 +7,40 @@ import BookDemo from './BookDemo';
 import './App.css'
 
 class BooksApp extends React.Component {
-  state = {
-    books: [],
-    searchResults: [],
+  constructor(props){
+    super(props);
+    this.state = {
+      books: [],
+      searchResults: [],
+    }
+    this.onShelfChange = this.onShelfChange.bind(this);
+    this.onSearch = this.onSearch.bind(this);
+    this.getABook = this.getABook.bind(this);
   }
+
   componentDidMount() {
     BooksAPI.getAll()
       .then((books) => { this.setState({ books })});
   }
 
-  // getABook(id, shelf) {
-  //   BooksAPI.get(id)
-  //   .then((data) => {
-  //     this.setState( (state) => {
-  //       state.books = state.books
-  //         .filter( item => (data.id !== item.id)) //filters out current book, if present
-  //         .concat(data); // concats new book with previous state
-  //     });
-  //   }).catch(err => {throw new Error(err)})
-  // }
+  getABook(id, shelf) {
+    BooksAPI.get(id)
+    .then((data) => {
+      this.setState( (state) => {
+        console.log('in this setstate meth')
+        this.state.books = this.state.books
+          .filter( item => (data.id !== item.id)) //filters out current book, if present
+          .concat(data); // concats new book with previous state
+      });
+    }).catch(err => {throw new Error(err)})
+  }
 
   onShelfChange(id, shelf) {
-    BooksAPI.update({id: id}, shelf)
-    .then( (data) => {
-          this.setState((state) => {
-            state.books = state.books
-              .filter(item => (data.id !== item.id))
-              .concat(data);
-          })
-    })
-  }
+    console.log(id, shelf, 'arguments being passed in')
+    BooksAPI.update({id: id}, shelf).then((books) => {
+        this.getABook(id, shelf)
+      })
+    }
   
   onSearch(query) {
     console.log(query, 'search query')
