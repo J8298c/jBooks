@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Book = (props) => (
   <li>
@@ -15,7 +16,7 @@ const Book = (props) => (
           </select>
         </div>
     </div>
-    <div className="book-title">{props.bookTitle}</div>
+   <Link to={props.pathTo}><div className="book-title">{props.bookTitle}</div></Link> 
       <div className="book-authors">{props.bookAuthor}</div>
     </div>
   </li>

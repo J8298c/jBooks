@@ -172,3 +172,15 @@ body, .app {
   text-align: center;
   font-size: 0.8em;
 }
+.book-demo-title {
+  text-align: center;
+  text-decoration: underline;
+  text-decoration-color: blue;
+}
+.book-demo-image img {
+  display: block;
+  margin: 0 auto;
+}
+.book-demo {
+  text-align: center;
+}

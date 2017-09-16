@@ -5,9 +5,9 @@ import Book from './Book';
 function SearchBook(props) {
   console.log(props, 'props in booksearch');
   const results = props.searchResults.map((results) => (
-    <Link key={results.id} to={`/book/${results.id}`}><Book bookTitle={results.title} bookAuthors={results.authors} imageUrl={results.imageLinks.thumbnail}
-      onShelfChange={props.onShelfChange}
-    /></Link>
+     <Book bookTitle={results.title} bookAuthors={results.authors} imageUrl={results.imageLinks.thumbnail}
+      onShelfChange={props.onShelfChange} pathTo={`/book/${results.id}`}
+    />
   ))
   return(
     <div className="search-books">

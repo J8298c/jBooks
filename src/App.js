@@ -33,6 +33,8 @@ class BooksApp extends React.Component {
                     .concat(data)
                 });
             })
+          BooksAPI.getAll()
+          .then((books) => { this.setState({ books })})
       })
     }
   
@@ -57,9 +59,7 @@ class BooksApp extends React.Component {
           <Route exact path='/' render={() => (
             <Shelves books={books} onShelfChange={this.onShelfChange}/>
           )}/>
-          <Route path='/book/:id' render={() => (
-            <BookDemo />
-          )}/>
+          <Route path='/book/:id' component={BookDemo} />
       </div>
     )
   }
