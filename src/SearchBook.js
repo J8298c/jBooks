@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import Book from './Book';
 
 function SearchBook(props) {
-  console.log(props, 'props in booksearch');
   const results = props.searchResults.map((results) => (
      <Book bookTitle={results.title} bookAuthors={results.authors} imageUrl={results.imageLinks.thumbnail}
       onShelfChange={props.onShelfChange} pathTo={`/book/${results.id}`}

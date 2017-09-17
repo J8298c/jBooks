@@ -4,16 +4,11 @@ import * as BookAPI from './BooksAPI';
 class BookDemo extends Component {
   state = {}
   componentDidMount(props) {
-    console.log(this.props, 'the props')
     const {id} = this.props.match.params;
-    console.log(id);
     BookAPI.get(id).then((book) => {this.setState({book})});
   }
   render(props) {
-    console.log(this.props, 'the props');
-    console.log(this.state, 'bookdemo state');
     const { book } = this.state;
-    console.log(book);
     return (
       <div className='book-demo'>
         <div className='book-demo-title'>
@@ -28,7 +23,7 @@ class BookDemo extends Component {
         <div>
           <h2>Book Details</h2>
           <p>{book ? book.description : '...loading'}</p>
-          <p>{book ? book.publishedDate : '...loading'}</p>
+          <p>Published {book ? book.publishedDate : '...loading'}</p>
         </div>
       </div>
     )

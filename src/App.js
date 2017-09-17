@@ -23,23 +23,13 @@ class BooksApp extends React.Component {
       }
 
       onShelfChange(id, shelf) {
-    BooksAPI.update({id: id}, shelf).then((books) => {
-        BooksAPI.get(id)
-            .then((data) => {
-                const { books } = this.state;
-                this.setState({
-                   books: books
-                    .filter(item => (data.id !== item.id))
-                    .concat(data)
-                });
-            })
-          BooksAPI.getAll()
-          .then((books) => { this.setState({ books })})
-      })
+        BooksAPI.update({id: id}, shelf).then((books) => {
+            BooksAPI.getAll()
+              .then((books) => { this.setState({ books })})
+          })
     }
   
   onSearch(query) {
-    console.log(query, 'search query')
     if (query !== ''){
       BooksAPI.search(query, 10).then((results) => {this.setState({searchResults: results})})
     }
@@ -65,4 +55,4 @@ class BooksApp extends React.Component {
   }
 }
 
-export default BooksApp
+export default BooksApp;

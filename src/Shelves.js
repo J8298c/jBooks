@@ -6,7 +6,6 @@ import Shelf from './Shelf';
 
 
 function Shelves(props) {
-  console.log(props, 'props being passed into shelves');
   const { books, onShelfChange } = props;
   const read =[];
   const currentlyReading = [];
@@ -16,7 +15,6 @@ function Shelves(props) {
     else if (book.shelf === 'currentlyReading') { currentlyReading.push(book)}
     else if(book.shelf === 'wantToRead') { wantToRead.push(book)}
   })
-  console.log(read);
   return (
     <div className="list-books">
       <Apptitle />

@@ -2,7 +2,6 @@ import React from 'react';
 import Book from './Book';
 
 function Shelf(props) {
-  console.log(props, 'props in the shelf component');
   const showBooks = props.books.map((book) => (
     <Book bookTitle={book.title} bookAuthor={book.authors} bookID={book.id}
       imageUrl={book.imageLinks.thumbnail} key={book.id} onShelfChange={props.onShelfChange}
