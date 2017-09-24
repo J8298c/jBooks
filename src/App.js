@@ -21,9 +21,8 @@ class BooksApp extends React.Component {
   componentDidMount() {
     this.getAllBookOnShelf();
   }
-  onShelfChange(id, shelf) {
-    console.log(id, shelf)
-    BooksAPI.update({id}, shelf)
+  onShelfChange(book, shelf) {
+    BooksAPI.update(book, shelf)
     this.getAllBookOnShelf();
   }
   getAllBookOnShelf() {
