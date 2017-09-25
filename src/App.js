@@ -22,9 +22,12 @@ class BooksApp extends React.Component {
     this.getAllBookOnShelf();
   }
   onShelfChange(book, shelf) {
-    BooksAPI.update(book, shelf)
-    this.getAllBookOnShelf();
+    BooksAPI.update({id: book}, shelf).then((books) => {
+      BooksAPI.getAll()
+      .then((books) => { this.setState({ books })})
+    })
   }
+
   getAllBookOnShelf() {
     BooksAPI.getAll()
       .then((books) => { this.setState({books})});
@@ -34,11 +37,13 @@ class BooksApp extends React.Component {
       BooksAPI.search(query, 10).then((results) => {this.setState({searchResults: results})})
     }
   }
-  getABook(bookID) {
-    BooksAPI.get(bookID)
-      .then((book) => { this.setState({book})})
+  getABook(id) {
+    console.log(id, 'param id')
+    BooksAPI.get(id)
+      .then((book) => { console.log(book), this.setState({book})})
   }
   render() {
+    console.log(this.state.book, 'single book');
     const { books } = this.state;
     return (
       <div className="app">
