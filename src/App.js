@@ -16,6 +16,7 @@ class BooksApp extends React.Component {
     this.onShelfChange = this.onShelfChange.bind(this);
     this.onSearch = this.onSearch.bind(this);
     this.getAllBookOnShelf = this.getAllBookOnShelf.bind(this);
+    this.checkInBooks = this.checkInBooks.bind(this);
   }
 
   componentDidMount() {
@@ -34,8 +35,24 @@ class BooksApp extends React.Component {
   }
   onSearch(query) {
     if (query !== ''){
-      BooksAPI.search(query, 10).then((results) => {this.setState({searchResults: results})})
+      BooksAPI.search(query, 10)
+      .then((results) => {
+        //results dont have a shelf
+        this.checkInBooks(results);
+        console.log(results);
+        this.setState({searchResults: results})
+      })
     }
+  }
+  checkInBooks(books) {
+    const results = [];
+    books.map((book) => {
+      if(!book.shelf){
+        book.shelf = 'none';
+        results.push(book);
+      }
+      return results;
+    })
   }
   getABook(id) {
     console.log(id, 'param id')
