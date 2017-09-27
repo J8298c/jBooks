@@ -3,17 +3,16 @@ import { Link } from 'react-router-dom';
 import Book from './Book';
 
 function SearchBook(props) {
-  const results = props.searchResults.map((results) => (
-     <Book bookTitle={results.title} bookAuthors={results.authors} imageUrl={results.imageLinks.thumbnail}
-      onShelfChange={props.onShelfChange} pathTo={`/book/${results.id}`} key={results.id} bookID={results.id}
-    />
+  const results = props.searchResults.map(book => (
+    <Book bookTitle={book.title} bookAuthors={book.authors} imageUrl={book.imageLinks.thumbnail}
+      onShelfChange={props.onShelfChange} key={book.id} bookID={book.id} />
   ))
   return(
     <div className="search-books">
       <div className="search-books-bar">
         <Link to='/' className="close-search">Close</Link>
         <div className="search-books-input-wrapper">
-          <input type="text" placeholder="Search by title or author" onChange={props.onChange}/>
+          <input type="text" placeholder="Search by title or author" onChange={props.onChange} />
         </div>
         </div>
         <div className="search-books-results">
@@ -24,5 +23,4 @@ function SearchBook(props) {
     </div>
   )
 }
-
 export default SearchBook;

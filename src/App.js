@@ -1,133 +1,109 @@
-import React from 'react'
-import { Route } from 'react-router-dom'
+import React, { Component } from 'react'
+import { Route } from 'react-router-dom';
 import * as BooksAPI from './BooksAPI'
-import SearchBook from './SearchBook';
 import Shelves from './Shelves';
+import SearchBook from './SearchBook';
 import './App.css'
 
-class BooksApp extends React.Component {
-  constructor(props){
+class App extends Component {
+  constructor(props) {
     super(props);
     this.state = {
-      books: [],
+      books: {
+        read: [],
+        wantToRead: [],
+        currentlyReading: [],
+      },
       searchResults: [],
-      book: [],
-      read: [],
-    };
-    this.onShelfChange = this.onShelfChange.bind(this);
+    }
+    this.openLibrary = this.openLibrary.bind(this);
+    this.stockShelves = this.stockShelves.bind(this);
     this.onSearch = this.onSearch.bind(this);
-    this.getAllBookOnShelf = this.getAllBookOnShelf.bind(this);
-    this.checkInBooks = this.checkInBooks.bind(this);
+    this.addShelftoBooks = this.addShelftoBooks.bind(this);
+    this.onShelfChange = this.onShelfChange.bind(this);
+    this.fixShelves = this.fixShelves.bind(this);
   }
 
   componentDidMount() {
-    this.getAllBookOnShelf();
-  }
-  /**
-   * handles switching the current shelf for books
-   * 
-   * 
-   * @param {any} id
-   * @param {any} shelf 
-   * @memberof BooksApp
-   */
-  onShelfChange(id, shelf) {
-    BooksAPI.update({id: id}, shelf).then((books) => {
-      BooksAPI.getAll()
-      .then((books) => { 
-        this.setState({ books })
-        this.checkInBooks(books);
-      })
-    })
+    this.openLibrary();
   }
 
-  /**
-   * returns all books from current api endpoint
-   * 
-   * @memberof BooksApp
-   */
+  openLibrary() {
+    this.stockShelves();
+  }
 
-  getAllBookOnShelf() {
+  stockShelves() {
     BooksAPI.getAll()
-      .then((books) => { this.setState({books})});
+      .then(books => {
+        let clearedBooks = this.fixShelves(books)
+        console.log(clearedBooks);
+        const read = this.librarian(clearedBooks, 'read');
+        const wantToRead = this.librarian(clearedBooks, 'wantToRead');
+        const currentlyReading = this.librarian(clearedBooks, 'currentlyReading');
+        this.setState({
+          books: {
+            read,
+            currentlyReading,
+            wantToRead
+          },
+          results: [],
+        })
+      })
   }
 
-  /**
-   * takes in user input when search for a book 
-   * and displays the results has a helper function
-   * called check in books
-   * 
-   * @param {any} query 
-   * @memberof BooksApp
-   */
+  librarian(books, shelfName) {
+    return books.filter(book => book.shelf === shelfName)
+  }
+
   onSearch(query) {
-    if (query !== ''){
-      BooksAPI.search(query, 10)
-      .then((results) => {
-        //results dont have a shelf
-        this.checkInBooks(results);
-        console.log(results);
-        this.setState({searchResults: results})
+    if(query !== ''){
+      BooksAPI.search(query)
+      .then(results => {
+        this.addShelftoBooks(results);
+        this.setState({searchResults: results});
       })
     }
   }
 
-  /**
-   * takes in array of books from search results
-   * maps through and adds key shelf and value none
-   * to books which dont have a shelf value
-   * 
-   * @param {any} books 
-   * @memberof BooksApp
-   */
-  checkInBooks(books) {
-    const results = [];
-    const read = [];
-    books.map((book) => {
+  addShelftoBooks(books){
+    const results =[];
+    books.map(book => {
       if(!book.shelf){
         book.shelf = 'none';
         results.push(book);
-        return results;
-      } else if (book.shelf = read){
-        read.push(book);
-        this.setState({read})
-      }    
+      }
+      return results;
+    })
+  }
+  fixShelves(books) {
+    let shelfed =[];
+     books.map(book => { 
+       book.shelf = book.shelf
+       shelfed.push(book);
+      });
+      return shelfed;
+  }
+  onShelfChange(id, shelf) {
+    console.log(id, shelf);
+    BooksAPI.update({id: id}, shelf).then((books) => {
+      this.stockShelves();
     })
   }
 
-  /**
-   * finds a single book to display
-   * within the bookdemo page
-   * 
-   * @param {any} id 
-   * @memberof BooksApp
-   */
-  getABook(id) {
-    console.log(id, 'param id')
-    BooksAPI.get(id)
-      .then((book) => { console.log(book), this.setState({book})})
-  }
-
-  
   render() {
-    console.log(this.state.book, 'single book');
-    console.log(this.state.read, 'read books');
-    const { books } = this.state;
     return (
       <div className="app">
           <Route path='/search' render={() => (
             <SearchBook 
-            onChange={(event) => { this.onSearch(event.target.value)}}
-            onShelfChange={this.onShelfChange}
-            searchResults={this.state.searchResults}
+              onChange={(event) => {this.onSearch(event.target.value)}} onShelfChange={this.onShelfChange} searchResults={this.state.searchResults}
             />
           )}/>
           <Route exact path='/' render={() => (
-            <Shelves books={books} onShelfChange={this.onShelfChange}/>
+            <Shelves books={this.state.books} onShelfChange={this.onShelfChange}/>
           )}/>
       </div>
     )
   }
 }
+export default App;
 
-export default BooksApp;
