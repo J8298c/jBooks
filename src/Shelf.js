@@ -6,7 +6,7 @@ function Shelf(props) {
   const showBooks = props.books.map((book) => (
     <Book 
     bookTitle={book.title} bookAuthors={book.authors} imageUrl={book.imageLinks.thumbnail} onShelfChange={props.onShelfChange} bookID={book.id}
-    key={book.id} 
+    key={book.id} bookShelf={book.shelf}
     />
   ))
   return (

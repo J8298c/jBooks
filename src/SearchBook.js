@@ -5,7 +5,8 @@ import Book from './Book';
 function SearchBook(props) {
   const results = props.searchResults.map(book => (
     <Book bookTitle={book.title} bookAuthors={book.authors} imageUrl={book.imageLinks.thumbnail}
-      onShelfChange={props.onShelfChange} key={book.id} bookID={book.id} />
+      onShelfChange={props.onShelfChange} key={book.id} bookID={book.id} bookShelf={book.shelf}
+      />
   ))
   return(
     <div className="search-books">

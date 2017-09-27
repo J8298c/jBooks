@@ -6,7 +6,7 @@ const Book = (props) => (
     <div className="book-top">
       <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${props.imageUrl})` }}></div>
       <div className="book-shelf-changer">
-        <select onChange={event => props.onShelfChange(props.bookID, event.target.value)}>
+        <select onChange={event => props.onShelfChange(props.bookID, event.target.value)} value={props.bookShelf}>
           <option value="none" disabled>Move to...</option>
           <option value="currentlyReading">Currently Reading</option>
           <option value="wantToRead">Want to Read</option>

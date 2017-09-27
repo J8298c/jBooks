@@ -16,30 +16,22 @@ class App extends Component {
       },
       searchResults: [],
     }
-    this.openLibrary = this.openLibrary.bind(this);
     this.stockShelves = this.stockShelves.bind(this);
     this.onSearch = this.onSearch.bind(this);
     this.addShelftoBooks = this.addShelftoBooks.bind(this);
     this.onShelfChange = this.onShelfChange.bind(this);
-    this.fixShelves = this.fixShelves.bind(this);
   }
 
   componentDidMount() {
-    this.openLibrary();
-  }
-
-  openLibrary() {
-    this.stockShelves();
+    this.stockShelves()
   }
 
   stockShelves() {
     BooksAPI.getAll()
       .then(books => {
-        let clearedBooks = this.fixShelves(books)
-        console.log(clearedBooks);
-        const read = this.librarian(clearedBooks, 'read');
-        const wantToRead = this.librarian(clearedBooks, 'wantToRead');
-        const currentlyReading = this.librarian(clearedBooks, 'currentlyReading');
+        const read = this.librarian(books, 'read');
+        const wantToRead = this.librarian(books, 'wantToRead');
+        const currentlyReading = this.librarian(books, 'currentlyReading');
         this.setState({
           books: {
             read,
@@ -75,14 +67,7 @@ class App extends Component {
       return results;
     })
   }
-  fixShelves(books) {
-    let shelfed =[];
-     books.map(book => { 
-       book.shelf = book.shelf
-       shelfed.push(book);
-      });
-      return shelfed;
-  }
+
   onShelfChange(id, shelf) {
     console.log(id, shelf);
     BooksAPI.update({id: id}, shelf).then((books) => {
