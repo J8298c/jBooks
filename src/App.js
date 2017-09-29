@@ -37,8 +37,7 @@ class App extends Component {
             read,
             currentlyReading,
             wantToRead
-          },
-          results: [],
+          }
         })
       })
   }
@@ -63,7 +62,7 @@ class App extends Component {
       if(!book.shelf){
         book.shelf = 'none';
         results.push(book);
-      }
+      } 
       return results;
     })
   }
@@ -81,6 +80,7 @@ class App extends Component {
           <Route path='/search' render={() => (
             <SearchBook 
               onChange={(event) => {this.onSearch(event.target.value)}} onShelfChange={this.onShelfChange} searchResults={this.state.searchResults}
+              books={this.state.books}
             />
           )}/>
           <Route exact path='/' render={() => (
