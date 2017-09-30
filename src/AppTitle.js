@@ -1,8 +1,9 @@
-import React from 'react';
+import React from 'react'
 
-const AppTitle = () => (
+const AppTitle = (props) => (
   <div className="list-books-title">
     <h1>MyReads</h1>
   </div>
 );
+
 export default AppTitle;
