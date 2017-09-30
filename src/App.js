@@ -15,6 +15,9 @@ class App extends Component {
     }
     this.stockShelves = this.stockShelves.bind(this);
     this.onShelfChange = this.onShelfChange.bind(this);
+    this.onSearch = this.onSearch.bind(this);
+    this.fixState = this.fixState.bind(this);
+    this.addShelf = this.addShelf.bind(this);
   }
 
   componentDidMount() {
@@ -22,11 +25,38 @@ class App extends Component {
   }
 
   onSearch(query) {
-    BooksAPI.search(query)
-      .then(books => {
-        console.log(books);
+    if(query !== ''){
+      BooksAPI.search(query)
+      .then(results => {
+        this.addShelf(results);
+        this.fixState(this.state.books, results);
+        this.setState({searchResults: results});
       })
+    }
   }
+
+  addShelf(books) {
+    const results = [];
+    books.map(book => {
+      if(!book.shelf){
+        book.shelf = 'none';
+        results.push(book);
+      }
+      return results;
+    })
+  }
+fixState(arr, arr1) {
+  const results = [];
+  arr.map(book => {
+    arr1.map(result => {
+      if(result.id === book.id) {
+        result.shelf = book.shelf;
+        results.push(result);
+      }
+      return results;
+    })
+  })
+}
 
   stockShelves() {
     BooksAPI.getAll().then(books => this.setState({ books }));
